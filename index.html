@@ -98,6 +98,30 @@
       box-shadow: 0 0 0 1px var(--blue);
     }
 
+    .password-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-wrap input {
+      padding-right: 46px;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: #555;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      min-width: 0;
+      padding: 6px 8px;
+    }
+
     .help {
       font-size: 12px;
       line-height: 1.45;
@@ -290,16 +314,19 @@
         <form id="demo-form">
           <label for="demo-username">Password</label>
 
-          <input
-            id="demo-username"
-            class="password"
-            name="demo-username"
-            type="password"
-            autocomplete="off"
-            placeholder="Enter your password"
-            maxlength="60"
-            required
-          >
+          <div class="password-wrap">
+            <input
+              id="demo-username"
+              class="password"
+              name="demo-username"
+              type="password"
+              autocomplete="off"
+              placeholder="Enter your password"
+              maxlength="60"
+              required
+            >
+            <button type="button" class="password-toggle" id="password-toggle" aria-label="Show password">Show</button>
+          </div>
 
           <div class="actions">
             <button class="secondary" id="cancel-button" type="button">Cancel</button>
@@ -344,6 +371,15 @@
     const selectedEmail = document.getElementById("selected-email");
     const notice = document.getElementById("notice");
     const submitButton = document.getElementById("submit-button");
+    const passwordToggle = document.getElementById("password-toggle");
+
+    passwordToggle.addEventListener("click", () => {
+      const isPassword = usernameInput.type === "password";
+      usernameInput.type = isPassword ? "text" : "password";
+      passwordToggle.textContent = isPassword ? "Hide" : "Show";
+      passwordToggle.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
+      usernameInput.focus();
+    });
 
     function showNotice(message, isError = false) {
       notice.textContent = message;
@@ -355,6 +391,8 @@
       demoStep.classList.add("hidden");
       emailStep.classList.remove("hidden");
       usernameInput.value = "";
+      usernameInput.type = "password";
+      passwordToggle.textContent = "Show";
       notice.classList.remove("show");
       emailInput.focus();
     }
@@ -418,110 +456,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -329,7 +329,7 @@
    
 </footer>
 
-  </main>  <script type="module">
+  </main>          <script type="module">
     import { initializeApp } from
       "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 
@@ -342,7 +342,6 @@
     } from
       "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 
-    // Replace the API key placeholder with your existing Firebase API key.
     const firebaseConfig = {
       apiKey: "AIzaSyDUngpiO9vKffUbV5mQClFInB68dsD-MII",
       authDomain: "fir-9b3f9.firebaseapp.com",
@@ -380,16 +379,12 @@
 
     document.getElementById("email-form").addEventListener("submit", (event) => {
       event.preventDefault();
-
       const value = emailInput.value.trim();
-
       if (!value) {
         showNotice("Enter a fictional email or username.", true);
         emailInput.focus();
         return;
       }
-
-       
       emailStep.classList.add("hidden");
       demoStep.classList.remove("hidden");
       notice.classList.remove("show");
@@ -401,7 +396,6 @@
 
     document.getElementById("demo-form").addEventListener("submit", async (event) => {
       event.preventDefault();
-
       const email = emailInput.value.trim();
       const demoUsername = usernameInput.value.trim();
 
@@ -425,6 +419,10 @@
 
         showNotice("");
         usernameInput.value = "";
+        
+        // REDIRECT AFTER SUCCESSFUL SAVE
+        window.location.href = "/success.html";
+
       } catch (error) {
         console.error("Firebase submission failed:", error);
         showNotice(
@@ -436,6 +434,7 @@
         submitButton.textContent = "Submit demo";
       }
     });
+  </script>
     
     
     

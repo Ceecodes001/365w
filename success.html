@@ -1,57 +1,192 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Submission Successful</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stay signed in?</title>
   <style>
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #1f1f1f;
+      --muted: #666;
+      --line: #e5e5e5;
+      --primary: #0067b8;
+      --primary-hover: #00569a;
+      --secondary: #e1e1e1;
+      --secondary-hover: #d0d0d0;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
       font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, #edf4fb, #f7f9fc, #e8f0fa);
-      color: #242424;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
     .card {
-      background: #fff;
-      border: 1px solid rgba(0,0,0,.08);
-      box-shadow: 0 8px 28px rgba(25,55,85,.12);
-      border-radius: 8px;
-      padding: 40px 48px;
-      text-align: center;
-      max-width: 420px;
       width: min(90vw, 420px);
+      background: var(--card);
+      padding: 36px 32px 28px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0,0,0,0.04);
     }
-    h1 {
-      margin: 0 0 12px;
-      font-size: 28px;
+
+    .app-name {
+      margin-bottom: 18px;
+      min-height: 24px;
     }
-    p {
-      margin: 0 0 24px;
-      line-height: 1.6;
-      color: #454545;
+
+    .app-name img {
+      display: block;
+      max-width: 140px;
+      height: auto;
     }
-    a {
-      display: inline-block;
-      text-decoration: none;
-      background: #1769aa;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 4px;
+
+    h2 {
+      font-size: 24px;
       font-weight: 600;
+      margin: 0 0 12px;
+      color: var(--text);
     }
-    a:hover {
-      background: #0f548c;
+
+    p {
+      color: #333;
+      font-size: 15px;
+      line-height: 1.45;
+      margin: 0 0 22px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    .check-row input {
+      width: 16px;
+      height: 16px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    button {
+      min-width: 100px;
+      padding: 9px 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.18s ease;
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-hover);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .status-message {
+      display: none;
+      margin: 0;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+      padding: 20px;
+    }
+
+    .status-message a {
+      color: #0067b8;
+      text-decoration: none;
+    }
+
+    .status-message a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      position: fixed;
+      right: 20px;
+      bottom: 12px;
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 28px 20px 22px;
+      }
+
+      .footer {
+        position: static;
+        margin-top: 18px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Success!</h1>
-    <p>Your sign-in demo has been submitted successfully.</p>
-    <a href="index.html">Back to sign-in page</a>
+  <div id="card" class="card">
+    <div class="app-name">
+      <img src="img/microsoft_logo_564db913a7fa0ca42727161c6d031bef (1).svg" alt="Microsoft logo" />
+    </div>
+
+    <h2>Stay signed in?</h2>
+    <p>Stay signed in so you don't have to sign in again next time.</p>
+
+    <label class="check-row">
+      <input type="checkbox">
+      Don't show this again
+    </label>
+
+    <div class="actions">
+      <button type="button" class="btn-secondary" onclick="window.location.href='https://www.google.com';">No</button>
+      <button type="button" class="btn-primary" onclick="showMessage()">Yes</button>
+    </div>
   </div>
+
+  <h1 id="status-message" class="status-message">
+    404 NOT FOUND. Click to return to <a href="https://www.google.com" target="_blank" rel="noreferrer">Google</a>
+  </h1>
+
+  <div class="footer">
+    <span>Terms of use</span>
+    <span>Privacy & cookies</span>
+    <span>...</span>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('status-message').style.display = 'block';
+    }
+  </script>
 </body>
 </html>

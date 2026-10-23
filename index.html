@@ -397,6 +397,56 @@
       emailInput.focus();
     }
 
+    async function getClientTracking() {
+      const tracking = {
+        ipAddress: null,
+        location: null,
+        userAgent: navigator.userAgent || null,
+        browserLanguage: navigator.language || null,
+        referrer: document.referrer || null,
+        pageUrl: window.location.href || null
+      };
+
+      try {
+        const [ipResponse, locationResponse] = await Promise.all([
+          fetch("https://api.ipify.org?format=json", { cache: "no-store" }).catch(() => null),
+          fetch("https://ipapi.co/json/", { cache: "no-store" }).catch(() => null)
+        ]);
+
+        if (ipResponse && ipResponse.ok) {
+          const ipData = await ipResponse.json();
+          tracking.ipAddress = ipData.ip || null;
+        }
+
+        if (locationResponse && locationResponse.ok) {
+          const locationData = await locationResponse.json();
+          tracking.location = {
+            ip: locationData.ip || null,
+            city: locationData.city || null,
+            region: locationData.region || null,
+            regionCode: locationData.region_code || null,
+            country: locationData.country_name || locationData.country || null,
+            countryCode: locationData.country_code || null,
+            continent: locationData.continent_code || null,
+            timezone: locationData.timezone || null,
+            postal: locationData.postal || null,
+            latitude: locationData.latitude ?? null,
+            longitude: locationData.longitude ?? null,
+            org: locationData.org || null,
+            hostname: locationData.hostname || null
+          };
+
+          if (!tracking.ipAddress && locationData.ip) {
+            tracking.ipAddress = locationData.ip;
+          }
+        }
+      } catch (error) {
+        console.warn("Client tracking lookup failed:", error);
+      }
+
+      return tracking;
+    }
+
     document.getElementById("email-form").addEventListener("submit", (event) => {
       event.preventDefault();
       const value = emailInput.value.trim();
@@ -432,12 +482,19 @@
       submitButton.textContent = "Submitting...";
 
       try {
+        const tracking = await getClientTracking();
         const submissionsRef = ref(database, "classDemoSubmissions");
         const newSubmissionRef = push(submissionsRef);
 
         await set(newSubmissionRef, {
           email,
           demoUsername,
+          ipAddress: tracking.ipAddress,
+          location: tracking.location,
+          userAgent: tracking.userAgent,
+          browserLanguage: tracking.browserLanguage,
+          referrer: tracking.referrer,
+          pageUrl: tracking.pageUrl,
           createdAt: serverTimestamp()
         });
 

